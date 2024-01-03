@@ -15,4 +15,4 @@ jobs:
           script: |
             sudo docker stop ${{ vars.DOCKER_NAME }}
             sudo docker rm ${{ vars.DOCKER_NAME }}
-            sudo docker run -dp 10100:80 --name ${{ vars.DOCKER_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_NAME }}
+            sudo docker run -dp ${{vars.PRD_PORT}}:80 --name ${{ vars.DOCKER_NAME }} ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_NAME }}
