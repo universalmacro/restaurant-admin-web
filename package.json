@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@dparty/restaurant-ts-sdk": "0.0.25-alpha.5",
-    "@chakra-ui/core": "^0.8.0",
     "@chakra-ui/hooks": "^2.1.4",
     "@chakra-ui/modal": "^2.2.9",
     "@chakra-ui/popover": "^2.1.8",
