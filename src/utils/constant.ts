@@ -1,0 +1,1 @@
+export const basePath = "https://restaurant-uat.sum-foods.com";
