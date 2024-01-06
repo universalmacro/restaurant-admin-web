@@ -2,7 +2,7 @@ import { useState } from 'react';
 import InputField from "components/fields/InputField";
 import Checkbox from "components/checkbox";
 import { NavLink, useNavigate } from 'react-router-dom';
-import useAuth from '../../hooks/useAuth';
+import { useAuth } from '../../contexts/AuthContext';
 
 const SignIn = () => {
   const navigate = useNavigate();
