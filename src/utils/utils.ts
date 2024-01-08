@@ -10,3 +10,9 @@ export function GetUrlRelativePath() {
   }
   return relUrl;
 }
+
+
+export function toTimestamp(strDate: string) {
+  const dt = Date.parse(strDate);
+  return dt / 1000;
+};

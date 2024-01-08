@@ -1,5 +1,6 @@
 import { Navigate, Route, RouteProps, Routes } from "react-router";
-import { useAuth } from "../../contexts/AuthContext";
+// import { useAuth } from "../../contexts/AuthContext";
+import { useSelector } from 'react-redux';
 
 type PrivateRouteProps = {
     roles?: string[];
@@ -8,17 +9,12 @@ type PrivateRouteProps = {
 const PrivateRoute = ({
     children
 }: any) => {
-    const { hasRole, userInfo } = useAuth();
+    // const { hasRole, userInfo } = useAuth();
+    const { userToken } = useSelector((state: any) => state.auth) || {};
 
+    console.log("PrivateRouteProps", userToken);
 
-
-    console.log("PrivateRouteProps", userInfo);
-
-    if (userInfo) {
-        // if (!hasRole(roles)) {
-        //     return <Navigate to={`/${process.env.PUBLIC_URL}/403`} />;
-        // }
-        // return <Route {...routeProps} />;
+    if (userToken) {
         return children;
 
     } else {

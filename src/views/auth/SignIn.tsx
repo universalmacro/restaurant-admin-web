@@ -1,28 +1,30 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import InputField from "components/fields/InputField";
 import Checkbox from "components/checkbox";
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContext';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogin } from '../../features/auth/authActions';
+import { AppDispatch } from '../../store';
 
 const SignIn = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { userToken } = useSelector((state: any) => state.auth) || {};
 
 
-  const { login } = useAuth();
-
+  // redirect authenticated user to profile screen
+  useEffect(() => {
+    if (userToken) {
+      navigate('/admin/order-management')
+    }
+  }, [navigate, userToken]);
 
   const handleFormSubmit = async (values: any) => {
-    setLoading(true);
-    try {
-      const res = await login(userName, password);
-      navigate('/admin');
-
-    } catch (e) {
-      setLoading(false);
-    }
+    dispatch(userLogin({ userName, password }));
   };
 
   return (
