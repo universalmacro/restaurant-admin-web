@@ -5,7 +5,7 @@ import {
     ConfigurationParameters,
 } from "@dparty/restaurant-ts-sdk";
 
-const token = localStorage.getItem("authkey").replace(/"/g, "");
+const token = localStorage.getItem("authkey")?.replace(/"/g, "");
 const restaurantBasePath = "https://uat.api.universalmacro.com/restaurant";
 
 export const restaurantApi = new RestaurantApi(
