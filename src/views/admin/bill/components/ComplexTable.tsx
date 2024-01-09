@@ -14,6 +14,7 @@ import {
   getPaginationRowModel,
 
 } from "@tanstack/react-table";
+import { Filter, DefaultColumnFilter } from "../variables/filters";
 
 type RowObj = {
   id: string;
@@ -74,7 +75,7 @@ export default function ComplexTable(props: { tableData: any }) {
       ),
       cell: (info) => (
         <p className="text-sm font-bold text-navy-700 dark:text-white">
-          {info.getValue()}
+          {new Date(info.getValue() * 1000).toLocaleString()}
         </p>
       ),
     }),
@@ -158,6 +159,7 @@ export default function ComplexTable(props: { tableData: any }) {
                           desc: "",
                         }[header.column.getIsSorted() as string] ?? null}
                       </div>
+                      <Filter column={header} />
                     </th>
                   );
                 })}

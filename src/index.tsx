@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from "react-router-dom";
 import './index.css';
 import App from './App';
-import AuthProvider from './contexts/AuthContext';
+import { Provider } from 'react-redux';
+import store from './store';
 import { QueryClient, QueryClientProvider } from "react-query";
 
 import reportWebVitals from './reportWebVitals';
@@ -24,11 +25,11 @@ const queryClient = new QueryClient({
 
 root.render(
   <QueryClientProvider client={queryClient}>
-    <AuthProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </AuthProvider>
+    </Provider>
   </QueryClientProvider>
 );
 
