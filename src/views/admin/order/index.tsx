@@ -1,15 +1,25 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { restaurantApi } from "api";
+import { restaurantApi, getBillList } from "api";
 import { Table, Tag, Badge, DatePicker, Space } from "antd";
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { toTimestamp } from "../../../utils/utils";
+import { useDispatch, useSelector } from 'react-redux';
+
 const { RangePicker } = DatePicker;
-
-
 
 
 const Tables = () => {
   const [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { userToken } = useSelector((state: any) => state.auth) || localStorage.getItem('userToken') || {};
+  const { restaurantList, restaurantId, restaurantInfo } = useSelector((state: any) => state.restaurant) || {};
+
+  const getHeaders = () => {
+    return {
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Authorization': `Bearer ${userToken}`,
+    };
+  }
 
   const onChange = (
     value: DatePickerProps['value'] | RangePickerProps['value'],
@@ -27,15 +37,23 @@ const Tables = () => {
   };
 
   const getDataSourceByDate = async (start: number, end: number) => {
+    if (!restaurantId) return;
+    setLoading(true);
     try {
-      const res = await restaurantApi.listBills({
-        restaurantId: '1717358125507416064',
-        // status?: BillStatus;
-        startAt: start,
-        endAt: end,
-        // tableId?: string;
-      });
+      // const res = await restaurantApi.listBills({
+      //   restaurantId: '1717358125507416064',
+      //   // status?: BillStatus;
+      //   startAt: start,
+      //   endAt: end,
+      //   // tableId?: string;
+      // });
+      let params = {
+        params: { restaurantId: restaurantId, startAt: start, endAt: end, },
+        headers: getHeaders()
+      }
+      const res = await getBillList(params);
       setDataSource(res);
+      setLoading(false);
     } catch (e) {
 
     }
@@ -44,19 +62,25 @@ const Tables = () => {
 
 
   const billData = async () => {
+    if (!restaurantId) return;
+    setLoading(true);
     try {
-      const res = await restaurantApi.listBills({
-        restaurantId: '1717358125507416064',
-        // status?: BillStatus;
-        // startAt?: number;
-        // endAt?: number;
-        // tableId?: string;
-      });
+      let params = {
+        params: { restaurantId: restaurantId },
+        headers: getHeaders()
+      }
+      const res = await getBillList(params);
       setDataSource(res);
+      setLoading(false);
     } catch (e) {
 
     }
   };
+
+  useEffect(() => {
+    console.log("userToken", userToken);
+    billData();
+  }, [userToken, restaurantId]);
 
   const columns = [
     {
@@ -123,9 +147,7 @@ const Tables = () => {
     },
   ];
 
-  useEffect(() => {
-    billData();
-  }, []);
+
 
   return (
 
@@ -140,7 +162,7 @@ const Tables = () => {
             onOk={onOk}
           />
         </Space>
-        <Table dataSource={dataSource} columns={columns} />;
+        <Table dataSource={dataSource} columns={columns} loading={loading} />;
       </div>
     </div>
   );
