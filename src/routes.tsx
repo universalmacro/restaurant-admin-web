@@ -7,6 +7,8 @@ import Profile from "views/admin/profile";
 import DataTables from "views/admin/tables";
 import BillTables from "views/admin/bill";
 import OrderTables from "views/admin/order";
+import SettingsTables from "views/admin/settings";
+
 
 import RTLDefault from "views/rtl/default";
 
@@ -29,6 +31,13 @@ const routes = [
     icon: <MdBarChart className="h-6 w-6" />,
     path: "order-management",
     component: <OrderTables />,
+  },
+  {
+    name: "餐廳設置",
+    layout: "/admin",
+    path: "settings",
+    icon: <MdHome className="h-6 w-6" />,
+    component: <SettingsTables />,
   },
   {
     name: "Main Dashboard",

@@ -21,11 +21,12 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state: any) => {
-      localStorage.removeItem('userToken') // deletes token from storage
-      state.loading = false
-      state.userInfo = null
-      state.userToken = null
-      state.error = null
+      localStorage.removeItem('userToken'); // deletes token from storage
+      localStorage.removeItem('restaurantId');
+      state.loading = false;
+      state.userInfo = null;
+      state.userToken = null;
+      state.error = null;
     },
   },
   extraReducers: (builder: any) => {
