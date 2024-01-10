@@ -8,6 +8,8 @@ import DataTables from "views/admin/tables";
 import BillTables from "views/admin/bill";
 import OrderTables from "views/admin/order";
 import SettingsTables from "views/admin/settings";
+import ItemSettingsTables from "views/admin/item-settings";
+
 
 
 import RTLDefault from "views/rtl/default";
@@ -22,6 +24,7 @@ import {
   MdBarChart,
   MdPerson,
   MdLock,
+  MdDining
 } from "react-icons/md";
 
 const routes = [
@@ -38,6 +41,13 @@ const routes = [
     path: "settings",
     icon: <MdHome className="h-6 w-6" />,
     component: <SettingsTables />,
+  },
+  {
+    name: "品项設置",
+    layout: "/admin",
+    path: "item",
+    icon: <MdDining className="h-6 w-6" />,
+    component: <ItemSettingsTables />,
   },
   {
     name: "Main Dashboard",

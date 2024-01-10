@@ -20,7 +20,7 @@ const SignIn = () => {
   // redirect authenticated user to profile screen
   useEffect(() => {
     if (userToken) {
-      navigate('/admin/order-management')
+      navigate('/admin/order-management');
     }
   }, [navigate, userToken]);
 

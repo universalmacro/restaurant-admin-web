@@ -49,6 +49,16 @@ export const getDiscounts = async (id: string, config: any) => {
   return res.data;
 };
 
+export const createItem = async (id: string, data: any, config: any) => {
+  const res = await axios.post(`${restaurantBasePath}/restaurants/${id}/items`, data, config);
+  return res.data;
+};
+
+export const updateItem = async (id: string, data: any, config: any) => {
+  const res = await axios.put(`${restaurantBasePath}/items/${id}`, data, config);
+  return res.data;
+};
+
 export const createTable = async (id: string, data: any, config: any) => {
   const res = await axios.post(`${restaurantBasePath}/restaurants/${id}/tables`, data, config);
   return res.data;
@@ -56,5 +66,16 @@ export const createTable = async (id: string, data: any, config: any) => {
 
 export const deleteTable = async (id: string, config: any) => {
   const res = await axios.delete(`${restaurantBasePath}/tables/${id}`, config);
+  return res.data;
+};
+
+export const updateTable = async (id: string, data: any, config: any) => {
+  const res = await axios.put(`${restaurantBasePath}/tables/${id}`, data, config);
+  return res.data;
+};
+
+
+export const deleteItems = async (id: string, config: any) => {
+  const res = await axios.delete(`${restaurantBasePath}/items/${id}`, config);
   return res.data;
 };
