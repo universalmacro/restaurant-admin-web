@@ -32,3 +32,20 @@ input:checked.defaultCheckbox::before {
 .ant-btn-primary {
   background-color: #365486;
 }
+
+.ant-switch-inner {
+  /* background-color: #365486; */
+}
+
+/* button:where(:not([class^="ant"])),
+[type='button']:where(:not([class^="ant"])),
+[type='reset']:where(:not([class^="ant"])),
+[type='submit']:where(:not([class^="ant"])) {
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+}
+
+.ant-btn:not([disabled]):hover {
+  background: #faad14 !important;
+} */

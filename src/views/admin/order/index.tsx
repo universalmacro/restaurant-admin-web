@@ -122,7 +122,8 @@ const Tables = () => {
             <Badge status="success" text={"已完成"} />}
         </>
       ),
-    }, {
+    },
+    {
       title: '餐桌號',
       dataIndex: 'tableLabel',
       key: 'tableLabel',
@@ -162,7 +163,7 @@ const Tables = () => {
             onOk={onOk}
           />
         </Space>
-        <Table dataSource={dataSource} columns={columns} loading={loading} />;
+        <Table dataSource={dataSource} columns={columns} loading={loading} />
       </div>
     </div>
   );

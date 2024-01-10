@@ -59,7 +59,6 @@ export default function Admin(props: { [x: string]: any }) {
 
   document.documentElement.dir = "ltr";
   return (
-    // <AuthGuard>
     <div className="flex h-full w-full">
       <Sidebar open={open} onClose={() => setOpen(false)} />
       {/* Navbar & Main Content */}
@@ -82,7 +81,7 @@ export default function Admin(props: { [x: string]: any }) {
 
                 <Route
                   path="/"
-                  element={<Navigate to="/admin/default" replace />}
+                  element={<Navigate to="/admin/order-management" replace />}
                 />
               </Routes>
             </div>
@@ -93,6 +92,5 @@ export default function Admin(props: { [x: string]: any }) {
         </main>
       </div>
     </div>
-    // </AuthGuard>
   );
 }

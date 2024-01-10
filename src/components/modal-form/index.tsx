@@ -10,13 +10,14 @@ const ModalForm = ({ state, visible, onSave, onCancel }: any) => {
   const [form] = Form.useForm();
 
   form.setFieldsValue({
-    title: state.label,
+    label: state.label,
+    id: state.id,
   })
 
   return (
     <Modal
       open={visible}
-      title="新增餐桌"
+      title="新增/编辑餐桌"
       okText="確認"
       cancelText="取消"
       onCancel={onCancel}
@@ -25,7 +26,7 @@ const ModalForm = ({ state, visible, onSave, onCancel }: any) => {
           .validateFields()
           .then(values => {
             form.resetFields();
-            onSave(values);
+            onSave({ ...values, id: state.id });
           })
           .catch(info => {
             console.log('Validate Failed:', info);

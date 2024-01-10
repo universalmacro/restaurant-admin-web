@@ -5,6 +5,7 @@ import PrivateRoute from "./core/components/PrivateRoute";
 import RtlLayout from "layouts/rtl";
 import AdminLayout from "layouts/admin";
 import AuthLayout from "layouts/auth";
+import ItemInfo from "views/info/ItemInfo";
 const App = () => {
 
   return (
@@ -26,6 +27,7 @@ const App = () => {
           </PrivateRoute>
         }
       />
+      <Route path="info/*" element={<ItemInfo />} />
       <Route path="rtl/*" element={<RtlLayout />} />
       <Route path="/" element={<Navigate to="admin/" replace />} />
     </Routes>

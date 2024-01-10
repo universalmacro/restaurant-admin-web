@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { restaurantApi, getPrinters, getDiscounts, createTable, getRestaurant, deleteTable } from "api";
+import { restaurantApi, getPrinters, getDiscounts, createTable, updateTable, getRestaurant, deleteTable } from "api";
 import { Table, Button, Modal, Tag, Badge, DatePicker, Space } from "antd";
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { toTimestamp } from "../../../utils/utils";
@@ -17,7 +17,7 @@ const Tables = () => {
   const [discountData, setDiscountData] = useState([]);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [tableValue, setTableValue] = useState({ label: "" });
+  const [tableValue, setTableValue] = useState({ label: "", id: "" });
   const { userToken } = useSelector((state: any) => state.auth) || localStorage.getItem('userToken') || {};
   const { restaurantList, restaurantId, restaurantInfo } = useSelector((state: any) => state.restaurant) || {};
   const { confirm } = Modal;
@@ -33,7 +33,20 @@ const Tables = () => {
   const onSave = async (values: any) => {
     console.log(values);
     try {
-      const res = await createTable(restaurantId, values, {
+      const res = await createTable(restaurantId, { label: values.label }, {
+        headers: getHeaders()
+      });
+      dispatch(getRestaurantInfo({ token: userToken }));
+    } catch (e) {
+
+    }
+    setVisible(false);
+  }
+
+  const onUpdate = async (values: any) => {
+    console.log(values);
+    try {
+      const res = await updateTable(values.id, { label: values.label }, {
         headers: getHeaders()
       });
       dispatch(getRestaurantInfo({ token: userToken }));
@@ -118,6 +131,11 @@ const Tables = () => {
     setVisible(true);
   }
 
+  const editTable = (record: any) => {
+    setTableValue({ label: record.label, id: record.id });
+    setVisible(true);
+  }
+
   useEffect(() => {
     getPrinterList();
     getDiscountList();
@@ -139,7 +157,7 @@ const Tables = () => {
     {
       title: '操作',
       key: 'operation',
-      render: (text: any, record: any) => (<><a className="text-blue-400 mr-4">編輯</a>
+      render: (text: any, record: any) => (<><a onClick={() => editTable(record)} className="text-blue-400 mr-4">編輯</a>
         <a className="text-red-400" onClick={() => handleDeleteTable(record)}>刪除</a></>),
     },
   ];
@@ -215,7 +233,7 @@ const Tables = () => {
       <ModalForm
         state={tableValue}
         visible={visible}
-        onSave={onSave}
+        onSave={tableValue?.label == "" ? onSave : onUpdate}
         onCancel={() => {
           setVisible(false);
         }}
