@@ -22,10 +22,7 @@ const restaurantSlice = createSlice({
   initialState,
   reducers: {
     setRestaurant: (state: any, { payload }: any) => {
-      console.log(payload?.info?.id);
-      if (payload?.info?.id) {
-        // localStorage.setItem('restaurantId', payload?.info?.id);
-      }
+      console.log("setRestaurant", payload?.info?.id);
       state.restaurantId = payload?.info?.id;
       state.restaurantInfo = payload?.info;
       return state;
@@ -42,8 +39,8 @@ const restaurantSlice = createSlice({
       .addCase(getRestaurantInfo.fulfilled, (state: any, { payload }: any) => {
         state.loading = false;
         state.restaurantList = payload;
-        state.restaurantId = payload?.[0]?.id;
-        state.restaurantInfo = payload?.[0];
+        state.restaurantId = state.restaurantId && payload?.find((item: any) => item.id === state.restaurantId) ? state.restaurantId:  payload?.[0]?.id;
+        state.restaurantInfo = state.restaurantId ? payload?.find((item: any) => item.id === state.restaurantId) : payload?.[0];
         return state;
       })
       .addCase(getRestaurantInfo.rejected, (state: any, { payload }: any) => {

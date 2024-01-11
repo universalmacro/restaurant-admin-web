@@ -9,10 +9,7 @@ import BillTables from "views/admin/bill";
 import OrderTables from "views/admin/order";
 import SettingsTables from "views/admin/settings";
 import ItemSettingsTables from "views/admin/item-settings";
-
-
-
-import RTLDefault from "views/rtl/default";
+import RestaurantInfo from "views/admin/restaurant-info";
 
 // Auth Imports
 import SignIn from "views/auth/SignIn";
@@ -50,27 +47,34 @@ const routes = [
     component: <ItemSettingsTables />,
   },
   {
-    name: "Main Dashboard",
+    name: "編輯餐廳",
     layout: "/admin",
-    path: "default",
-    icon: <MdHome className="h-6 w-6" />,
-    component: <MainDashboard />,
+    path: "restaurant",
+    icon: <MdLock className="h-6 w-6" />,
+    component: <RestaurantInfo />,
   },
-  {
-    name: "訂單管理React-table",
-    layout: "/admin",
-    icon: <MdBarChart className="h-6 w-6" />,
-    path: "bill-management",
-    component: <BillTables />,
-  },
-  {
-    name: "NFT Marketplace",
-    layout: "/admin",
-    path: "nft-marketplace",
-    icon: <MdOutlineShoppingCart className="h-6 w-6" />,
-    component: <NFTMarketplace />,
-    secondary: true,
-  },
+  // {
+  //   name: "Main Dashboard",
+  //   layout: "/admin",
+  //   path: "default",
+  //   icon: <MdHome className="h-6 w-6" />,
+  //   component: <MainDashboard />,
+  // },
+  // {
+  //   name: "訂單管理React-table",
+  //   layout: "/admin",
+  //   icon: <MdBarChart className="h-6 w-6" />,
+  //   path: "bill-management",
+  //   component: <BillTables />,
+  // },
+  // {
+  //   name: "NFT Marketplace",
+  //   layout: "/admin",
+  //   path: "nft-marketplace",
+  //   icon: <MdOutlineShoppingCart className="h-6 w-6" />,
+  //   component: <NFTMarketplace />,
+  //   secondary: true,
+  // },
   {
     name: "Sign In",
     layout: "/auth",
