@@ -40,8 +40,13 @@ const Tables = () => {
   }, [restaurantId]);
 
   useEffect(() => {
+    console.log("useEffectuseEffectuseEffect", restaurantInfo?.items);
     setDataSource(restaurantInfo?.items);
-  }, [restaurantInfo?.items?.length]);
+  }, restaurantInfo?.items);
+
+  // useEffect(() => {
+  //   dispatch(getRestaurantInfo({ token: userToken }));
+  // }, []);
 
 
   const getHeaders = () => {
@@ -248,7 +253,7 @@ const Tables = () => {
     {
       title: '操作',
       key: 'operation',
-      render: (text: any, record: any) => (<><a className="text-blue-400 mr-4" onClick={() => navigate("/info", { state: { record: record } })}>編輯</a>
+      render: (text: any, record: any) => (<><a className="text-blue-400 mr-4" onClick={() => navigate("/info", { state: { record, restaurantInfo } })}>編輯</a>
         <a className="text-red-400" onClick={() => handleDelete(record)}>刪除</a></>),
     },
   ];

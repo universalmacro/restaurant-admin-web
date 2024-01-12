@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { basePath } from "../../utils/constant";
-
+import sha256 from 'crypto-js/sha256';
 
 export const userLogin = createAsyncThunk(
 	'auth/login',
@@ -10,9 +10,11 @@ export const userLogin = createAsyncThunk(
 			const { data } = await axios.post(`${basePath}/sessions`, {
 				'email': userName,
 				'password': password,
+				// 'password': sha256(sha256(password).toString()).toString(),
 			});
-			// store user's token in local storage
-			localStorage.setItem('userToken', data.token);
+			if(data?.token){
+				localStorage.setItem('userToken', data.token);
+			}
 			return data;
 		} catch (error: any) {
 			// return custom error message from API if any

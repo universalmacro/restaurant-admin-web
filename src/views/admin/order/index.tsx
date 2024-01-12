@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { restaurantApi, getBillList } from "api";
-import { Table, Tag, Badge, DatePicker, Space } from "antd";
+import { Table, Tag, Badge, DatePicker, Space, Modal } from "antd";
 import type { DatePickerProps, RangePickerProps } from 'antd/es/date-picker';
 import { toTimestamp } from "../../../utils/utils";
 import { useDispatch, useSelector } from 'react-redux';
@@ -77,6 +77,46 @@ const Tables = () => {
     }
   };
 
+  const showInfo = (record: any) => {
+    console.log("show", record);
+    Modal.info({
+      title: "訂單詳情",
+      content: (
+        <div>
+          <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700 mr-4">
+            {record?.orders?.map((order: any) => {
+              return (
+                <>
+                  <li className="pt-3 pb-3sm:pb-4">
+                    <div className="flex items-center space-x-4 rtl:space-x-reverse">
+
+                      <div className="flex-1 min-w-0">
+                        <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                          {order?.item?.name}
+                        </p>
+                        <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                          {order?.specification.map((i: any) => {
+                            return <span>{i.left}: {i.right}</span>
+                          })}
+                        </p>
+                      </div>
+                      <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                        ${order?.item?.pricing / 100}
+                      </div>
+                    </div>
+                  </li>
+                </>
+              )
+            })}
+
+          </ul>
+          <div className="flex-grow text-right font-semibold text-black dark:text-white mr-4 mt-4 text-base">總價：${record?.total / 100}</div>
+        </div>
+      ),
+      onOk() { },
+    });
+  };
+
   useEffect(() => {
     console.log("userToken", userToken);
     billData();
@@ -130,6 +170,12 @@ const Tables = () => {
       width: '16%',
     },
     {
+      title: '折扣',
+      dataIndex: 'offset',
+      key: 'offset',
+      width: '10%',
+    },
+    {
       title: '總額',
       dataIndex: 'total',
       key: 'total',
@@ -141,10 +187,10 @@ const Tables = () => {
       ),
     },
     {
-      title: '操作',
+      title: '訂單詳情',
       key: 'operation',
       width: 100,
-      render: () => <a className="text-blue-400">查看</a>,
+      render: (text: any, record: any) => <a className="text-blue-400" onClick={() => showInfo(record)}>查看</a>,
     },
   ];
 

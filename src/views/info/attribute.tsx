@@ -11,6 +11,9 @@ const EditAttribute = ({ initValues, onChange }: any) => {
     }
   }, []);
 
+  useEffect(() => form.resetFields(), [initValues]);
+
+
   const onFormChange = () => {
     onChange(form.getFieldsValue()?.items);
   }

@@ -1,18 +1,13 @@
 import { Modal, Form, Input } from 'antd';
 
-const ModalForm = ({ state, visible, onSave, onCancel }: any) => {
+const ConfirmModalForm = ({ visible, onSave, onCancel }: any) => {
 
   const [form] = Form.useForm();
-
-  form.setFieldsValue({
-    label: state.label,
-    id: state.id,
-  })
 
   return (
     <Modal
       open={visible}
-      title="新增/编辑餐桌"
+      title="確認刪除餐廳？請輸入餐廳名稱"
       okText="確認"
       cancelText="取消"
       onCancel={onCancel}
@@ -21,7 +16,7 @@ const ModalForm = ({ state, visible, onSave, onCancel }: any) => {
           .validateFields()
           .then(values => {
             form.resetFields();
-            onSave({ ...values, id: state.id });
+            onSave({ ...values });
           })
           .catch(info => {
             console.log('Validate Failed:', info);
@@ -35,7 +30,7 @@ const ModalForm = ({ state, visible, onSave, onCancel }: any) => {
       >
         <Form.Item
           name="label"
-          label="餐桌名稱"
+          label="餐廳名稱"
           rules={[
             {
               required: true,
@@ -50,4 +45,4 @@ const ModalForm = ({ state, visible, onSave, onCancel }: any) => {
   );
 };
 
-export default ModalForm;
+export default ConfirmModalForm;

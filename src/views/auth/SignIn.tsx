@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import InputField from "components/fields/InputField";
 import Checkbox from "components/checkbox";
 import { NavLink, useNavigate } from 'react-router-dom';
-
+import { Modal } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogin } from '../../features/auth/authActions';
 
@@ -14,7 +14,7 @@ const SignIn = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { userToken } = useSelector((state: any) => state.auth) || {};
+  const { userToken, error } = useSelector((state: any) => state.auth) || {};
 
 
   // redirect authenticated user to profile screen
@@ -27,6 +27,20 @@ const SignIn = () => {
   const handleFormSubmit = async (values: any) => {
     dispatch(userLogin({ userName, password }));
   };
+
+  const showError = () => {
+    Modal.error({
+      title: '登錄失敗',
+      content: error,
+    });
+  };
+
+  useEffect(() => {
+    if (error) {
+      showError();
+    }
+  }, [error]);
+
 
   return (
     <div className="mt-16 mb-16 flex h-full w-full items-center justify-center px-2 md:mx-0 md:px-0 lg:mb-10 lg:items-center lg:justify-start">

@@ -5,14 +5,23 @@ import { AppDispatch } from '../../store';
 import { getRestaurantInfo } from "../../features/restaurant/restaurantActions";
 import { setRestaurant } from "../../features/restaurant/restaurantSlice";
 
-const SelectRestaurant = (props: {}) => {
+const SelectRestaurant = ({ defalutSelect }: any) => {
   const dispatch = useDispatch<AppDispatch>();
   const { userToken } = useSelector((state: any) => state.auth) || {};
   const { restaurantList, restaurantId, restaurantInfo } = useSelector((state: any) => state.restaurant) || {};
   const [optionList, setOptionList] = useState<any>([]);
 
+
+
+  useEffect(() => {
+    console.log("defalutSelect", defalutSelect);
+    if (defalutSelect) {
+      dispatch(setRestaurant({ info: defalutSelect }));
+    }
+  }, []);
+
   const handleChange = (value: string, data: any) => {
-    console.log(data);
+    console.log("handleChange", data);
     if (data) {
       dispatch(setRestaurant(data));
     }
@@ -21,14 +30,15 @@ const SelectRestaurant = (props: {}) => {
   useEffect(() => {
     if (userToken) {
       dispatch(getRestaurantInfo({ token: userToken }));
-      console.log(restaurantId, restaurantList, restaurantInfo);
       let list: any = [];
       restaurantList?.map((item: any) => {
         list.push({ value: item.id, label: item.name, key: item.id, info: item });
       })
       console.log(list);
       setOptionList(list);
-      dispatch(setRestaurant(list?.[0] ?? null));
+      if (!defalutSelect) {
+        dispatch(setRestaurant(list?.[0] ?? null));
+      }
     }
   }, [userToken, restaurantList?.length]);
 

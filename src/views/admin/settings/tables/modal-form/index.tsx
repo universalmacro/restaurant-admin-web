@@ -1,13 +1,24 @@
+import { useEffect } from 'react';
 import { Modal, Form, Input } from 'antd';
+import { RestaurantTable } from 'types/restaurant';
 
-const ModalForm = ({ state, visible, onSave, onCancel }: any) => {
+interface TableModalFormProps {
+  state: RestaurantTable;
+  visible: boolean;
+  onSave: (table: RestaurantTable) => void;
+  onCancel: () => void;
+}
+
+const ModalForm: React.FC<TableModalFormProps> = ({ state, visible, onSave, onCancel }) => {
 
   const [form] = Form.useForm();
 
-  form.setFieldsValue({
-    label: state.label,
-    id: state.id,
-  })
+  useEffect(() => {
+    form.setFieldsValue({
+      label: state.label,
+      id: state.id,
+    })
+  }, [state?.id]);
 
   return (
     <Modal

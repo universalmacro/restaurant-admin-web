@@ -33,6 +33,20 @@ export const getRestaurant = async (params: any) => {
   return res.data;
 };
 
+export const createRestaurant = async (data: any, config: any) => {
+  const res = await axios.post(`${restaurantBasePath}/restaurants`, data, config);
+  return res.data;
+};
+
+export const updateRestaurant = async (id: string, data: any, config: any) => {
+  const res = await axios.put(`${restaurantBasePath}/restaurants/${id}`, data, config);
+  return res.data;
+};
+
+export const deleteRestaurant = async (id: string, config: any) => {
+  const res = await axios.delete(`${restaurantBasePath}/restaurants/${id}`, config);
+  return res.data;
+};
 
 export const getBillList = async (params: any) => {
   const res = await axios.get(`${restaurantBasePath}/bills`, params);
@@ -71,6 +85,38 @@ export const deleteTable = async (id: string, config: any) => {
 
 export const updateTable = async (id: string, data: any, config: any) => {
   const res = await axios.put(`${restaurantBasePath}/tables/${id}`, data, config);
+  return res.data;
+};
+
+// discount
+export const createDiscount = async (id: string, data: any, config: any) => {
+  const res = await axios.post(`${restaurantBasePath}/restaurants/${id}/discounts`, data, config);
+  return res.data;
+};
+
+export const deleteDiscount = async (id: string, config: any) => {
+  const res = await axios.delete(`${restaurantBasePath}/discounts/${id}`, config);
+  return res.data;
+};
+
+export const updateDiscount = async (id: string, data: any, config: any) => {
+  const res = await axios.put(`${restaurantBasePath}/discounts/${id}`, data, config);
+  return res.data;
+};
+
+// printers
+export const createPrinter = async (id: string, data: any, config: any) => {
+  const res = await axios.post(`${restaurantBasePath}/restaurants/${id}/printers`, data, config);
+  return res.data;
+};
+
+export const deletePrinter = async (id: string, config: any) => {
+  const res = await axios.delete(`${restaurantBasePath}/printers/${id}`, config);
+  return res.data;
+};
+
+export const updatePrinter = async (id: string, data: any, config: any) => {
+  const res = await axios.put(`${restaurantBasePath}/printers/${id}`, data, config);
   return res.data;
 };
 
