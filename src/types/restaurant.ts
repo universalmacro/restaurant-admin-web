@@ -1,3 +1,8 @@
+export interface RestaurantTable {
+  id: string;
+  label: string;
+};
+
 export interface Discount {
   id: string;
   label: string;

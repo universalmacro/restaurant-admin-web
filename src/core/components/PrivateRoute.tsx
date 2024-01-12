@@ -12,9 +12,10 @@ const PrivateRoute = ({
     // const { hasRole, userInfo } = useAuth();
     const { userToken } = useSelector((state: any) => state.auth) || {};
 
-    console.log("PrivateRouteProps", userToken);
 
     if (userToken) {
+        console.log("PrivateRouteProps", userToken);
+
         return children;
 
     } else {
